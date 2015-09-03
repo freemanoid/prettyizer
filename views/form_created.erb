@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>GoogleForm2Typeform</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="custom.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="container">
+      <% if flash[:error] && flash[:error] != "" %>
+        <div class="alert alert-danger" role="alert"><%= flash[:error] %></div>
+      <% end %>
+
+      <form method="post" action="/generate_form">
+        <label for="google_form_url">Google form to transform</label>
+        <input type="text" name="google_form_url" id="google_form_url" class="form-control" placeholder="Google form url" required autofocus value="<%=@google_form_url %>">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Turn into typeform!</button>
+      </form>
+
+      <div id="typeformUrlDiv">
+        <label for="typeformUrl">Typeformed googleform:</label>
+        <input type="text" class="form-control" value="<%= @typeform_url %>" id="typeformUrl" onClick="document.getElementById('typeformUrl').focus();document.getElementById('typeformUrl').select();">
+        <a class="typeform-share link btn btn-lg btn-success btn-block" href="<%= @typeform_url %>" data-mode="1" target="_blank">Open new form</a>
+      </div>
+
+      <script>(function(){var qs,js,q,s,d=document,gi=d.getElementById,ce=d.createElement,gt=d.getElementsByTagName,id='typef_orm',b='https://s3-eu-west-1.amazonaws.com/share.typeform.com/';if(!gi.call(d,id)){js=ce.call(d,'script');js.id=id;js.src=b+'share.js';q=gt.call(d,'script')[0];q.parentNode.insertBefore(js,q)}})()</script>
+    </div>
+  </body>
+</html>
